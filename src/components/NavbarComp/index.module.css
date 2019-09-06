@@ -1,0 +1,19 @@
+.container {
+    height: 80px;
+    background-color: #04395E;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.brand {
+    font-family: 'Impact', sans-serif;
+    color: white;
+    font-size: 30px;
+}
+
+.link {
+    color: white;
+    font-family: 'Avenir Next', sans-serif;
+}

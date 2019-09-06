@@ -1,0 +1,14 @@
+.container {
+    height: 30px;
+    width: 100%;
+    border-top: 1px solid lightgrey;
+    font-family: "Avenir Next", sans-serif;
+    font-size: 10px;
+    text-align: center;
+}
+
+.paragraph {
+    color: grey;
+    margin: 5px 0;
+}
+
