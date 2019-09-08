@@ -1,32 +1,31 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import styles from './index.module.css';
-import { API_KEY } from "../../CONFIG";
 
 const CompaniesComp = props => {
 
-  const [ companies, setCompanies ] = useState([]);
+    props.fetchCompaniesIfNeeded();
 
-  useEffect(() => {
-   fetch( `https://api-v2.intrinio.com/companies?api_key=${ API_KEY }`)
-     .then( res => res.json())
-     .then( data => {
-       setCompanies( data.companies );
-     })
-     .catch( err => {
-       console.error( err );
-     })
-  }, []);
+    return (
+        <div className={ styles.container }>
+            { Object.values( props.companies ).map( company => (
+                <Link to={ `/companies/${ company.ticker }` } className={ styles.card } key={ company.ticker }>
+                    <strong>{ company.ticker }</strong> { company.name }
+                </Link>
+            ) ) }
+        </div>
+    )
+};
 
-  return (
-    <div className={ styles.container }>
-      { companies.map( company => (
-        <Link to={ `/companies/${ company.ticker }`} className={ styles.card } key={ company.id }>
-          <strong>{ company.ticker }</strong> { company.name }
-        </Link>
-      ))}
-    </div>
-  )
+CompaniesComp.defaultProps = {
+    companies: {},
+    fetchCompaniesIfNeeded: () => console.error( 'fetchCompaniesIfNeeded() is not supplied' )
+};
+
+CompaniesComp.propTypes = {
+    fetchCompaniesIfNeeded: PropTypes.func.isRequired,
+    companies: PropTypes.object.isRequired
 };
 
 export default CompaniesComp;

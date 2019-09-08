@@ -1,6 +1,20 @@
-const API_KEY = 'OjZiMzEzNTJlYjk4YjA4OGZlNTQ4MThiZTY5NGZmYmU5';
+export const API_KEY = 'OjZiMzEzNTJlYjk4YjA4OGZlNTQ4MThiZTY5NGZmYmU5';
+export const API_ROOT = 'https://api-v2.intrinio.com';
 
-const PROPS_LIST = {
+export const COMPANIES_LENGTH = 29;
+export const SECURUTIES_LENGTH = 10;
+export const SECURITIES_PERIOD = 20;
+
+export const CARD_STRUCTURE = {
+  name: 'Title',
+  open: 'Open',
+  close: 'Close',
+  high: 'High'
+};
+
+export const EXTRA_PROP = 'legal_name';
+
+export const PROPS_LIST = {
   ticker: 'Ticker',
   name: 'Name',
   legal_name: 'Legal Name',
@@ -13,7 +27,3 @@ const PROPS_LIST = {
   long_description: 'Long Description'
 };
 
-export {
-  API_KEY,
-  PROPS_LIST
-}

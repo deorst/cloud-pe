@@ -1,68 +1,39 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## React Challenge task for [appliedlabs.io](https://appliedlabs.io)
 
-## Available Scripts
+Clone the project, install dependencies:
 
-In the project directory, you can run:
+`npm install` or `yarn add`
 
-### `npm start`
+To run the project: `npm start` or `yarn start`
 
 Runs the app in the development mode.<br>
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+Requirements:
+* Redux Storage
+* React Routing
+* Intrino API integration
+* Clean React Component architecture
+* Use of styled components 
+* Use of props and default props
+* Use Create React App ( all unused code removed )
+* Debounce pattern
+* ESLint
 
-### `npm test`
+### My Comments
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+During my work on that project I faced a few problems I'd like to tell.
 
-### `npm run build`
+**Redundant fetching**  
+On Landing Page I make first fetch request to pull the list of 10 companies, to get their names (like "Apple Inc") and tickers ("AAPL"). After I got the list of companies, I iterate over that list and make fetch request to get security prices for each particular company. Eventually I perform 11 fetch requests to Intrinio API, to get data for 10 securities. It's highly inefficient in my opinion, and will cause problems once the list of companies started to grow up. However I could not come up with a better solution. It would be ideal to pull that data in one fetch request from API, but it seems like Intrinio API does not provide that feature.
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+**Number of Companies to display.**  
+I should display 30 companies on the "Companies" page as per instruction, but it seems like Intrinio API provides us with just 29 of them. When I request to get all companies, I get a list of 29, even if I explicitly set parameter "per_page=30", I get same result.
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+**Default Props.**  
+I don't think that Default Props should be used anywhere in that application (I think PropTypes checking is enough here), but to meet your criteria I used them in CompaniesComp.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+**Securities request period.**  
+There is a paramater "start_date" in /securities portion of Intrinio API. It's used to get the data after that date, up to today. For most of securities is enough to request the data for the last couple of days, except for Walt Disney Co. It seems like the data for that company is obsolete, and we have to request the data for the last 20 days, to get the values. The drawback is that we have to request the data for the last 20 days for all of the securities, which is substantial amount of data. The parameter SECURITIES_PERIOD in CONFIG.js may be changed to 2, to avoid downloading extra data. For most securities it will be fine, except aforementioned Walt Disney Co - Open/Close/High values will be "Not Defined", and there will be an error in the console saying that.
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify

@@ -1,28 +1,30 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 import {
-  CompaniesComp,
-  CompanyComp,
   Footer,
-  LandingPageComp,
   NavbarComp
 } from './components';
+
+import {
+  CompaniesCont,
+  CompanyCont,
+  LandingPageCont
+} from './containers';
+
 import styles from './app.module.css';
 
 function App() {
   return (
-    <Router>
       <div className={ styles.container }>
         <NavbarComp/>
         <Switch>
-          <Route path='/companies/:companyName' component={ CompanyComp } />
-          <Route path='/companies' component={ CompaniesComp } />
-          <Route path='/' component={ LandingPageComp } />
+          <Route path='/companies/:ticker' component={ CompanyCont } />
+          <Route path='/companies' component={ CompaniesCont } />
+          <Route path='/' component={ LandingPageCont } />
         </Switch>
         <Footer />
       </div>
-    </Router>
   );
 }
 
