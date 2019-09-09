@@ -1,5 +1,15 @@
-import { RECEIVE_COMPANIES, REQUEST_COMPANIES } from "../../actions/companies";
-import { RECEIVE_COMPANY, REQUEST_COMPANY, ADD_COMMENT } from "../../actions/company";
+import {
+    RECEIVE_COMPANIES,
+    REQUEST_COMPANIES
+} from "../../actions/companies";
+
+import {
+    RECEIVE_COMPANY,
+    REQUEST_COMPANY,
+    ADD_COMMENT,
+    RECEIVE_NEWS,
+    REQUEST_NEWS
+} from "../../actions/company";
 
 function companies( state={
     isFetching: false,
@@ -69,6 +79,24 @@ function companies( state={
                     [ action.comment.ticker ]: {
                         ...state.items[ action.comment.ticker ],
                         comments
+                    }
+                }
+            });
+        case REQUEST_NEWS:
+            return Object.assign({}, state, {
+                isFetching: true,
+                dedInvalidate: false
+            });
+        case RECEIVE_NEWS:
+
+            return Object.assign({}, state, {
+                isFetching: false,
+                didInvalidate: false,
+                items: {
+                    ...state.items,
+                    [ action.news.ticker ]: {
+                        ...state.items[ action.news.ticker ],
+                        news: action.news.data
                     }
                 }
             });

@@ -1,4 +1,10 @@
-import { API_KEY, API_ROOT, EXTRA_PROP, PROPS_LIST } from "../../CONFIG";
+import {
+    API_KEY,
+    API_ROOT,
+    EXTRA_PROP,
+    PROPS_LIST,
+    NEWS_PAGE_SIZE
+} from "../../CONFIG";
 
 export const REQUEST_COMPANY = 'REQUEST_COMPANY';
 function requestCompany() {
@@ -24,6 +30,21 @@ export function addComment( comment ) {
     }
 }
 
+export const REQUEST_NEWS = 'REQUEST_NEWS';
+function requestNews() {
+    return {
+        type: REQUEST_NEWS
+    }
+}
+
+export const RECEIVE_NEWS = 'RECEIVE_NEWS';
+function receiveNews( news ) {
+    return {
+        type: RECEIVE_NEWS,
+        news
+    }
+}
+
 function fetchCompany( ticker ) {
     return function( dispatch ) {
 
@@ -32,7 +53,6 @@ function fetchCompany( ticker ) {
         return fetch( `${ API_ROOT }/companies/${ ticker }?api_key=${ API_KEY }` )
             .then( res => res.json() )
             .then( data => {
-
                 const company = {};
 
                 // Keep just the properties we need.
@@ -41,6 +61,19 @@ function fetchCompany( ticker ) {
                 dispatch( receiveCompany( company ));
             })
             .catch( err => console.error( err ) );
+    }
+}
+
+function fetchNews( ticker ) {
+    return function( dispatch ) {
+        dispatch( requestNews());
+
+        return fetch( `${ API_ROOT }/companies/${ ticker }/news?page_size=${ NEWS_PAGE_SIZE }&api_key=${ API_KEY }`)
+            .then( res => res.json())
+            .then( data => {
+                dispatch( receiveNews( { data: data.news, ticker: data.company.ticker } ));
+            })
+            .catch( err => console.error( err ));
     }
 }
 
@@ -71,9 +104,10 @@ function shouldFetchCompany( state, ticker ) {
 export function fetchCompanyIfNeeded( ticker ) {
     return ( dispatch, getState ) => {
         if ( shouldFetchCompany( getState(), ticker )) {
-            return dispatch( fetchCompany( ticker ))
+            return Promise.all([ dispatch( fetchCompany( ticker )), dispatch( fetchNews( ticker )) ]);
         } else {
             return Promise.resolve();
         }
     }
 }
+

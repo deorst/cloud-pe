@@ -102,3 +102,28 @@ input:focus, textarea:focus {
     font-family: "Avenir Next", Verdana, sans-serif;
 }
 
+.newsContainer {
+    padding: 0 1em;
+}
+
+.newsContainer:hover {
+    background-color: rgba(4,57,94, 0.1);
+    cursor: pointer;
+}
+
+.newsHeader {
+    text-align: center;
+    margin: 1em 0;
+}
+
+.newsPubDate {
+    font-family: "Avenir Next", Verdana, sans-serif;
+    font-style: italic;
+    text-align: right;
+}
+
+.newsSummary {
+    font-family: "Avenir Next", Verdana, sans-serif;
+    margin: 1em 0;
+    text-indent: 2em;
+}

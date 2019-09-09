@@ -6,6 +6,7 @@ import AddCommentComp from "./AddCommentComp";
 import CommentsComp from "./CommentsComp";
 import BasicInfoComp from "./BasicInfoComp";
 import DescriptionComp from "./DescriptionComp";
+import NewsComp from "./NewsComp";
 
 const CompanyComp = props => {
 
@@ -29,6 +30,8 @@ const CompanyComp = props => {
             <AddCommentComp ticker={ ticker } addComment={ addComment }/>
 
             <CommentsComp company={ companies[ ticker ]} />
+
+            <NewsComp company={ companies[ ticker ]} />
 
         </div>
     )
