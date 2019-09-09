@@ -1,22 +1,19 @@
+import update from 'immutability-helper';
 import { RECEIVE_SECURITIES, REQUEST_SECURITIES } from "../../actions/securities";
 
 function securities( state={
     isFetching: false,
-    didInvalidate: false,
     items: []
 }, action ) {
     switch ( action.type ) {
         case REQUEST_SECURITIES:
-            return Object.assign({}, state, {
-                isFetching: true,
-                didInvalidate: false
+            return update( state, {
+                isFetching: { $set: true }
             });
         case RECEIVE_SECURITIES:
-            return Object.assign({}, state, {
-                isFetching: false,
-                didInvalidate: false,
-                items: action.securities,
-                lastUpdated: action.receivedAt
+            return update( state, {
+                isFetching: { $set: false },
+                items: { $set: action.securities }
             });
         default:
             return state;

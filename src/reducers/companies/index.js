@@ -1,3 +1,4 @@
+import update from 'immutability-helper';
 import {
     RECEIVE_COMPANIES,
     REQUEST_COMPANIES
@@ -13,7 +14,6 @@ import {
 
 function companies( state={
     isFetching: false,
-    didInvalidate: false,
     items: {}
 }, action ) {
 
@@ -21,85 +21,51 @@ function companies( state={
     let comments;
 
     switch ( action.type ) {
+        
         case REQUEST_COMPANIES:
-            return Object.assign( {}, state, {
-                isFetching: true,
-                didInvalidate: false
-            });
-        case RECEIVE_COMPANIES:
-            return Object.assign({}, state, {
-                isFetching: false,
-                didInvalidate: false,
-                items: action.companies,
-                lastUpdated: action.receivedAt
-            });
         case REQUEST_COMPANY:
-            return Object.assign({}, state, {
-                isFetching: true,
-                dedInvalidate: false
-            });
-        case RECEIVE_COMPANY:
-
-            comments = JSON.parse( sessionStorage.getItem( action.company.ticker )) || [];
-
-            return Object.assign({}, state, {
-                isFetching: false,
-                didInvalidate: false,
-                items: {
-                    ...state.items,
-                    [ action.company.ticker ]: {
-                        ...action.company,
-                        comments
-                    }
-                },
-                lastUpdated: action.receivedAt
-            });
-        case ADD_COMMENT:
-
-            if ( state.items[ action.comment.ticker ].hasOwnProperty( 'comments' )) {
-                comments = [
-                    ...state.items[ action.comment.ticker ].comments,
-                    {
-                        name: action.comment.name,
-                        text: action.comment.text
-                    }
-                ]
-            } else {
-                comments = [{
-                    name: action.comment.name,
-                    text: action.comment.text
-                }]
-            }
-
-            sessionStorage.setItem( action.comment.ticker, JSON.stringify( comments ));
-
-            return Object.assign( {}, state, {
-                items: {
-                    ...state.items,
-                    [ action.comment.ticker ]: {
-                        ...state.items[ action.comment.ticker ],
-                        comments
-                    }
-                }
-            });
         case REQUEST_NEWS:
-            return Object.assign({}, state, {
-                isFetching: true,
-                dedInvalidate: false
+            return update( state, {
+                isFetching: { $set: true }
             });
-        case RECEIVE_NEWS:
-
-            return Object.assign({}, state, {
-                isFetching: false,
-                didInvalidate: false,
+            
+        case RECEIVE_COMPANIES:
+            return update( state, {
+                isFetching: { $set: false },
+                items: { $set: action.companies }
+            });
+            
+        case RECEIVE_COMPANY:
+            comments = JSON.parse( sessionStorage.getItem( action.company.ticker )) || [];
+            return update( state, {
+                isFetching: { $set: false },
+                items: { $merge: {[ action.company.ticker ]: { ...action.company, comments }}}
+            });
+            
+        case ADD_COMMENT:
+            sessionStorage.setItem( action.comment.ticker, JSON.stringify( comments ));
+            return update( state, {
                 items: {
-                    ...state.items,
-                    [ action.news.ticker ]: {
-                        ...state.items[ action.news.ticker ],
-                        news: action.news.data
+                    [ action.comment.ticker ]: {
+                        comments: {
+                            $push: [{ name: action.comment.name, text: action.comment.text }]
+                        }
                     }
                 }
             });
+            
+        case RECEIVE_NEWS:
+            return update( state, {
+                isFetching: { $set: false },
+                items: {
+                    [ action.news.ticker ]: {
+                        news: {
+                            $set: action.news.data
+                        }
+                    }
+                }
+            });
+            
         default:
             return state;
     }
