@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { CompanyComp } from '../../components';
-import { fetchCompanyIfNeeded } from "../../actions/company";
+import { addComment, fetchCompanyIfNeeded } from "../../actions/company";
 
 const mapStateToProps = state => {
     return {
@@ -10,7 +10,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchCompanyIfNeeded: ticker => dispatch( fetchCompanyIfNeeded( ticker ))
+        fetchCompanyIfNeeded: ticker => dispatch( fetchCompanyIfNeeded( ticker )),
+        addComment: comment => dispatch( addComment( comment ))
     }
 };
 

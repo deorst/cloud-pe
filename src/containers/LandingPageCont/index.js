@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { LandingPageComp } from '../../components';
-import { fetchSecurities, fetchSecuritiesIfNeeded } from "../../actions";
+import { fetchSecuritiesIfNeeded } from "../../actions";
 
 const mapStateToProps = state => {
     return {

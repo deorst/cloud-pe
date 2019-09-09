@@ -3,7 +3,7 @@ export const API_ROOT = 'https://api-v2.intrinio.com';
 
 export const COMPANIES_LENGTH = 29;
 export const SECURUTIES_LENGTH = 10;
-export const SECURITIES_PERIOD = 20;
+export const SECURITIES_PERIOD = 25;
 
 export const CARD_STRUCTURE = {
   name: 'Title',
