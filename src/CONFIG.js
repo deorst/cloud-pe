@@ -1,7 +1,6 @@
 export const API_KEY = 'OjZiMzEzNTJlYjk4YjA4OGZlNTQ4MThiZTY5NGZmYmU5';
 export const API_ROOT = 'https://api-v2.intrinio.com';
 
-export const COMPANIES_LENGTH = 29;
 export const SECURUTIES_LENGTH = 10;
 export const SECURITIES_PERIOD = 25;
 export const NEWS_PAGE_SIZE = 10;

@@ -7,7 +7,7 @@ import {
 import {
     REQUEST_COMPANIES,
     RECEIVE_COMPANIES,
-    fetchCompaniesIfNeeded
+    fetchCompanies
 } from "./companies";
 
 import {
@@ -24,6 +24,6 @@ export {
     REQUEST_COMPANY,
     RECEIVE_COMPANY,
     fetchSecuritiesIfNeeded,
-    fetchCompaniesIfNeeded,
-    fetchCompanyIfNeeded
+    fetchCompanyIfNeeded,
+    fetchCompanies
 }

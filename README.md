@@ -17,7 +17,7 @@ Requirements:
 * Use of styled components 
 * Use of props and default props **DONE**
 * Use Create React App ( all unused code removed ) **DONE**
-* Debounce pattern
+* Debounce pattern **DONE**
 * ESLint **DONE**
 
 ### My Comments

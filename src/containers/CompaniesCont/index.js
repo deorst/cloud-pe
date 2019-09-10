@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { CompaniesComp } from '../../components';
-import { fetchCompaniesIfNeeded } from "../../actions";
+import { fetchCompanies } from "../../actions";
 
 const mapStateToProps = state => {
     return {
@@ -10,7 +10,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchCompaniesIfNeeded: () => dispatch( fetchCompaniesIfNeeded())
+        fetchCompanies: query => dispatch( fetchCompanies( query ))
     }
 };
 

@@ -14,6 +14,7 @@ import {
 
 function companies( state={
     isFetching: false,
+    query: '',
     items: {}
 }, action ) {
 
@@ -22,11 +23,16 @@ function companies( state={
 
     switch ( action.type ) {
         
-        case REQUEST_COMPANIES:
         case REQUEST_COMPANY:
         case REQUEST_NEWS:
             return update( state, {
                 isFetching: { $set: true }
+            });
+            
+        case REQUEST_COMPANIES:
+            return update( state, {
+                isFetching: { $set: true },
+                query: { $set: action.query ? action.query : '' }
             });
             
         case RECEIVE_COMPANIES:
@@ -43,6 +49,8 @@ function companies( state={
             });
             
         case ADD_COMMENT:
+            comments = JSON.parse( sessionStorage.getItem( action.comment.ticker )) || [];
+            comments.push({ name: action.comment.name, text: action.comment.text });
             sessionStorage.setItem( action.comment.ticker, JSON.stringify( comments ));
             return update( state, {
                 items: {
