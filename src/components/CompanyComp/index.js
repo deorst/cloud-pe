@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styles from './index.module.css';
 
 import AddCommentComp from "./AddCommentComp";
 import CommentsComp from "./CommentsComp";
 import BasicInfoComp from "./BasicInfoComp";
 import DescriptionComp from "./DescriptionComp";
 import NewsComp from "./NewsComp";
+import { Container } from "../styled";
 
 const CompanyComp = props => {
 
@@ -21,7 +21,7 @@ const CompanyComp = props => {
     fetchCompanyIfNeeded( ticker );
 
     return (
-        <div className={ styles.container }>
+        <Container>
 
             <BasicInfoComp company={ companies[ ticker ]} />
 
@@ -33,7 +33,7 @@ const CompanyComp = props => {
 
             <NewsComp company={ companies[ ticker ]} />
 
-        </div>
+        </Container>
     )
 };
 

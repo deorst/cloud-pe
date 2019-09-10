@@ -1,6 +1,49 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import styles from "../index.module.css";
+import styled from 'styled-components';
+
+import {
+    SectionContainer,
+    SectionHeader
+} from "../styled";
+
+const
+    Input = styled.input`
+        border: 1px solid lightgrey;
+        border-radius: 5px;
+        height: 4em;
+        padding: 1em;
+        margin-bottom: 20px;
+        font-family: "Avenir Next", Verdana, sans-serif;
+        font-size: 1em;
+        :focus {
+            outline: none;
+            border: 2px solid #04395E;
+        }
+    `,
+    Textarea = styled( Input )`
+        resize: vertical;
+    `,
+    Button = styled.button`
+        width: 10em;
+        height: 3em;
+        margin: 1em;
+        padding: 0.5em 1em;
+        background-color: transparent;
+        border: 2px solid #04395E;
+        border-radius: 5px;
+        color: #04395E;
+        font-family: "Avenir Next", Verdana, sans-serif;
+        font-size: 1em;
+        :hover {
+            border: 3px solid #04395E;
+            font-weight: bolder;
+        }
+    `,
+    BtnContainer = styled.div`
+        display: flex;
+        justify-content: space-around;
+    `;
 
 const AddCommentComp = props => {
 
@@ -14,8 +57,10 @@ const AddCommentComp = props => {
 
     const submitComment = ev => {
       ev.preventDefault();
-      addComment({ ticker, ...comment });
-      setComment({ name: '', text: '' });
+      if ( comment.name && comment.text ) {
+          addComment({ ticker, ...comment });
+          setComment({ name: '', text: '' });
+      }
     };
 
     const cancelComment = ev => {
@@ -24,35 +69,32 @@ const AddCommentComp = props => {
     };
 
     return (
-       <form className={ styles.sectionContainer }>
-          <h4 className={ styles.sectionHeader }>Add comment</h4>
-          <input
+        <SectionContainer as="form">
+          <SectionHeader>Add comment</SectionHeader>
+          <Input
               type="text"
               placeholder="Name"
-              className={ styles.input }
               value={ comment.name }
               name="name"
               onChange={ handleCommentChange }
           />
-          <textarea
-              className={ styles.input }
+          <Textarea
+              as="textarea"
               placeholder="Comment"
               value={ comment.text }
               name="text"
               onChange={ handleCommentChange }
           />
-          <div className={ styles.btnContainer }>
-             <button
+          <BtnContainer>
+             <Button
                  type="submit"
-                 className={ styles.button }
                  onClick={ submitComment }
-             >Submit</button>
-             <button
-                 className={ styles.button }
+             >Submit</Button>
+             <Button
                  onClick={ cancelComment }
-             >Cancel</button>
-          </div>
-       </form>
+             >Cancel</Button>
+          </BtnContainer>
+        </SectionContainer>
     )
 };
 

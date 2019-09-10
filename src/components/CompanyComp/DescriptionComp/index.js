@@ -1,8 +1,32 @@
 import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
-import styles from "../index.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown, faCaretUp } from "@fortawesome/free-solid-svg-icons";
+import styled from 'styled-components';
+
+import {
+    SectionContainer,
+    SectionHeader
+} from "../styled";
+
+const
+    DescriptionParagraph = styled.p`
+        text-align: justify;
+        text-justify: inter-word;
+        text-indent: 50px;
+        font-family: "Avenir Next", Verdana, sans-serif;
+    `,
+    ReadMoreBtn = styled.button`
+        border: none;
+        font-family: "Avenir Next", Verdana, sans-serif;
+        font-size: 1em;
+        margin: 0 5px;
+        font-weight: bold;
+        :focus {
+            outline: none;
+        }
+    `
+;
 
 const DescriptionComp = props => {
 
@@ -17,35 +41,28 @@ const DescriptionComp = props => {
     if ( !company ) return null;
 
     return (
-        <div className={ styles.sectionContainer }>
-            <h4 className={ styles.sectionHeader }>Description</h4>
-            <p className={ styles.desParagraph }>
+        <SectionContainer>
+            <SectionHeader>Description</SectionHeader>
+            <DescriptionParagraph>
                 { longDes ?
                     <Fragment>
                         { company.long_description }
-                        <button
-                            className={ styles.readMoreBtn }
-                            onClick={ toggleDesLen }
-                        >
+                        <ReadMoreBtn onClick={ toggleDesLen }>
                             Show less
-                            <FontAwesomeIcon className={ styles.caret } icon={ faCaretUp }/>
-                        </button>
+                            <FontAwesomeIcon icon={ faCaretUp }/>
+                        </ReadMoreBtn>
                     </Fragment>
                     :
                     <Fragment>
                         { company.short_description }
-                        <button
-                            className={ styles.readMoreBtn }
-                            onClick={ toggleDesLen }
-                        >
+                        <ReadMoreBtn onClick={ toggleDesLen }>
                             Read more
-                            <FontAwesomeIcon className={ styles.caret } icon={ faCaretDown }/>
-                        </button>
+                            <FontAwesomeIcon icon={ faCaretDown }/>
+                        </ReadMoreBtn>
                     </Fragment>
                 }
-            </p>
-        </div>
-
+            </DescriptionParagraph>
+        </SectionContainer>
     )
 };
 

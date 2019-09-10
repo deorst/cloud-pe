@@ -1,6 +1,28 @@
 import React, { Fragment } from 'react';
-import styles from "../index.module.css";
 import { PROPS_LIST } from "../../../CONFIG";
+import styled from 'styled-components';
+
+import {
+    SectionContainer,
+    SectionHeader
+} from "../styled";
+
+const
+    Row = styled.div`
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px solid lightgrey;
+        padding-top: 10px;
+    `,
+    PropKey = styled.div`
+        font-family: "Avenir Next", sans-serif;
+        margin-right: 100px;
+    `,
+    PropValue = styled.div`
+        font-family: Verdana, sans-serif;
+        font-weight: 800;
+    `
+;
 
 const BasicInfoComp = props => {
 
@@ -9,25 +31,24 @@ const BasicInfoComp = props => {
     if ( !company ) return null;
 
     return (
-        <div className={ styles.sectionContainer }>
-            <h4 className={ styles.sectionHeader }>Basic Information</h4>
+        <SectionContainer>
+            <SectionHeader>Basic Information</SectionHeader>
             { Object.keys( PROPS_LIST ).map( key => {
-
                 // List all properties as long as it's not description.
                 if (( key !== 'short_description' ) && ( key !== 'long_description' )) {
                     return (
-                        <div className={ styles.row } key={ key }>
-                            <div className={ styles.propKey }>
+                        <Row key={ key }>
+                            <PropKey>
                                 { PROPS_LIST[key] }
-                            </div>
-                            <div className={ styles.propValue }>
+                            </PropKey>
+                            <PropValue>
                                 { company[ key ] }
-                            </div>
-                        </div>
+                            </PropValue>
+                        </Row>
                     )
                 } else return <Fragment key={ key }></Fragment>;
             } ) }
-        </div>
+        </SectionContainer>
     )
 };
 

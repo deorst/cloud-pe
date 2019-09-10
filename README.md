@@ -14,7 +14,7 @@ Requirements:
 * React Routing **DONE**
 * Intrino API integration **DONE**
 * Clean React Component architecture **DONE**
-* Use of styled components 
+* Use of styled components **DONE**
 * Use of props and default props **DONE**
 * Use Create React App ( all unused code removed ) **DONE**
 * Debounce pattern **DONE**

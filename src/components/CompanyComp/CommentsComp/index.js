@@ -1,7 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
-import styles from "../index.module.css";
+import {
+    SectionContainer,
+    SectionHeader
+} from "../styled";
+
+const
+    Comment = styled.div`
+        margin-bottom: 1em;
+    `,
+    CommentText = styled.p`
+        font-family: "Avenir Next", Verdana, sans-serif;
+    `
+;
 
 const CommentsComp = props => {
 
@@ -14,15 +27,15 @@ const CommentsComp = props => {
     ) return null;
 
     return (
-        <div className={ styles.sectionContainer }>
-            <h4 className={ styles.sectionHeader }>Comments</h4>
+        <SectionContainer>
+            <SectionHeader>Comments</SectionHeader>
             { company.comments.map(( comment, idx ) => (
-                <div className={ styles.comment } key={ idx }>
+                <Comment key={ idx }>
                     <div><strong>{ comment.name }</strong></div>
-                    <p className={ styles.commentText }>{ comment.text }</p>
-                </div>
+                    <CommentText>{ comment.text }</CommentText>
+                </Comment>
             ))}
-        </div>
+        </SectionContainer>
 
     )
 };

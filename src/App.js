@@ -12,11 +12,17 @@ import {
   LandingPageCont
 } from './containers';
 
-import styles from './app.module.css';
+import styled from 'styled-components';
+
+const Container = styled.div`
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+`;
 
 function App() {
   return (
-      <div className={ styles.container }>
+      <Container>
         <NavbarComp/>
         <Switch>
           <Route path='/companies/:ticker' component={ CompanyCont } />
@@ -24,7 +30,7 @@ function App() {
           <Route path='/' component={ LandingPageCont } />
         </Switch>
         <Footer />
-      </div>
+      </Container>
   );
 }
 

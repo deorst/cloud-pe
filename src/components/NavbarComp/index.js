@@ -1,18 +1,36 @@
 import React from 'react';
 import { Link } from "react-router-dom";
+import styled from 'styled-components';
 
-import styles from './index.module.css';
+const
+    Container = styled.div`
+        height: 80px;
+        background-color: #04395E;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 20px;
+    `,
+    BrandLink = styled( Link )`
+        font-family: 'Impact', sans-serif;
+        color: white;
+        font-size: 30px;
+    `,
+    CompaniesLink = styled( Link )`
+        color: white;
+        font-family: 'Avenir Next', sans-serif;
+    `;
+    
+
 
 const NavbarComp = props => {
   return (
-    <div className={ styles.container }>
-      <Link to="/" className={ styles.brand }>
+    <Container>
+      <BrandLink to="/">
         Cloud-PE
-      </Link>
-      <ul>
-        <li><Link to='/companies' className={ styles.link }>Companies</Link></li>
-      </ul>
-    </div>
+      </BrandLink>
+      <CompaniesLink to='/companies'>Companies</CompaniesLink>
+    </Container>
   )
 };
 
