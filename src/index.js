@@ -9,6 +9,7 @@ import App from './App';
 import rootReducer from './reducers';
 
 import * as serviceWorker from './serviceWorker';
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 import './index.css';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

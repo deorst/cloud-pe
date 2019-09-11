@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import Loader from 'react-loader-spinner';
 import { CARD_STRUCTURE } from "../../CONFIG";
 
 import styled from 'styled-components';
@@ -50,24 +51,32 @@ const LandingPageComp = props => {
     return (
         <LandingContainer>
             <CardRow>
-                { props.securities.map( security => {
-                    return  (
-                        <Card to={ `/companies/${ security.ticker }` } key={ security.ticker }>
-                            { Object.keys( CARD_STRUCTURE ).map( key => {
-                                return (
-                                    <PropLine key={ key }>
-                                        <PropKey>
-                                            { CARD_STRUCTURE[key] }:
-                                        </PropKey>
-                                        <PropValue>
-                                            { security[key] || 'Not available' }
-                                        </PropValue>
-                                    </PropLine>
-                                )
-                            } ) }
-                        </Card>
-                    )
-                } ) }
+                { props.securities.length === 0
+                    ? <Loader
+                        type="MutatingDots"
+                        color="#04395E"
+                    />
+                    : <Fragment>
+                        { props.securities.map( security => {
+                            return  (
+                                <Card to={ `/companies/${ security.ticker }` } key={ security.ticker }>
+                                    { Object.keys( CARD_STRUCTURE ).map( key => {
+                                        return (
+                                            <PropLine key={ key }>
+                                                <PropKey>
+                                                    { CARD_STRUCTURE[key] }:
+                                                </PropKey>
+                                                <PropValue>
+                                                    { security[key] || 'Not available' }
+                                                </PropValue>
+                                            </PropLine>
+                                        )
+                                    } ) }
+                                </Card>
+                            )
+                        } ) }
+                    </Fragment>
+                }
             </CardRow>
         </LandingContainer>
     )

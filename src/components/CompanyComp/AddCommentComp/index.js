@@ -9,7 +9,7 @@ import {
 
 const
     Input = styled.input`
-        border: 1px solid lightgrey;
+        border: 1px solid ${ props => props.error ? 'red' : 'lightgrey'}
         border-radius: 5px;
         height: 4em;
         padding: 1em;
@@ -43,57 +43,72 @@ const
     BtnContainer = styled.div`
         display: flex;
         justify-content: space-around;
+    `,
+    Label = styled.label`
+        font-family: "Avenir Next", sans;
     `;
 
 const AddCommentComp = props => {
-
+    
     const { addComment, ticker } = props;
-
-    const [ comment, setComment ] = useState({ name: '', text: '' });
-
+    
+    const [comment, setComment] = useState( { name: '', text: '' } );
+    const [error, setError] = useState( false );
+    
     const handleCommentChange = ev => {
-      setComment({ ...comment, [ ev.target.name ]: ev.target.value })
+        setError( false );
+        setComment( { ...comment, [ev.target.name]: ev.target.value } )
     };
-
+    
     const submitComment = ev => {
-      ev.preventDefault();
-      if ( comment.name && comment.text ) {
-          addComment({ ticker, ...comment });
-          setComment({ name: '', text: '' });
-      }
+        ev.preventDefault();
+        
+        // Just checking whether input field is empty,
+        // no check on validity.
+        if ( comment.name && comment.text ) {
+            addComment( { ticker, ...comment } );
+            setComment( { name: '', text: '' } );
+        } else setError( true );
     };
-
+    
     const cancelComment = ev => {
-      ev.preventDefault();
-      setComment({ name: '', text: '' });
+        ev.preventDefault();
+        setError( false );
+        setComment( { name: '', text: '' } );
     };
-
+    
     return (
         <SectionContainer as="form">
-          <SectionHeader>Add comment</SectionHeader>
-          <Input
-              type="text"
-              placeholder="Name"
-              value={ comment.name }
-              name="name"
-              onChange={ handleCommentChange }
-          />
-          <Textarea
-              as="textarea"
-              placeholder="Comment"
-              value={ comment.text }
-              name="text"
-              onChange={ handleCommentChange }
-          />
-          <BtnContainer>
-             <Button
-                 type="submit"
-                 onClick={ submitComment }
-             >Submit</Button>
-             <Button
-                 onClick={ cancelComment }
-             >Cancel</Button>
-          </BtnContainer>
+            <SectionHeader>Add comment</SectionHeader>
+            <Label htmlFor="name">Name</Label>
+            <Input
+                id="name"
+                type="text"
+                placeholder="John Smith"
+                value={ comment.name }
+                name="name"
+                onChange={ handleCommentChange }
+                error={ error }
+            />
+            <Label htmlFor="text">Comment</Label>
+            <Textarea
+                id="text"
+                as="textarea"
+                placeholder="Type something you'd like..."
+                value={ comment.text }
+                name="text"
+                onChange={ handleCommentChange }
+                error={ error }
+            />
+            <BtnContainer>
+                <Button
+                    type="submit"
+                    onClick={ submitComment }
+                >Submit</Button>
+                <Button
+                    onClick={ cancelComment }
+                >Cancel</Button>
+            </BtnContainer>
         </SectionContainer>
     )
 };
