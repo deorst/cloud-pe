@@ -1,8 +1,8 @@
 ## React Challenge task for [appliedlabs.io](https://appliedlabs.io)
 
-Clone the project, install dependencies:
+Clone the project, move to project dir `cd cloud-pe`, install dependencies:
 
-`npm install` or `yarn add`
+`npm install` or `yarn`
 
 To run the project: `npm start` or `yarn start`
 
